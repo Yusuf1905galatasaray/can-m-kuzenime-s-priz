@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İyi ki Doğdun Canım Kuzenim!</title>
+    <!-- Tailwind ve Konfeti Kütüphaneleri -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Fontlar -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Outfit:wght@300;600;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #ff3399;
+            --secondary: #00d4ff;
+            --bg-dark: #020205;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Dinamik Parçacık Arka Planı */
+        #particles-js {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1a0b2e 0%, #020205 100%);
+        }
+
+        .cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Ultra Modern Kart Tasarımı */
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            box-shadow: 0 0 80px rgba(255, 51, 153, 0.15);
+            animation: cardFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0) rotateX(2deg); }
+            50% { transform: translateY(-20px) rotateX(-2deg); }
+        }
+
+        /* İsim ve Hitap Işıltısı */
+        .name-glow {
+            background: linear-gradient(45deg, #fff, var(--accent), #7000ff, #00d4ff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 5s ease infinite;
+            filter: drop-shadow(0 0 15px rgba(255, 51, 153, 0.6));
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Sihirli Buton */
+        .magic-btn {
+            background: linear-gradient(45deg, #ff3399, #7000ff);
+            padding: 1.2rem 3.5rem;
+            border-radius: 100px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            box-shadow: 0 10px 40px rgba(255, 51, 153, 0.5);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .magic-btn:hover {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 20px 60px rgba(255, 51, 153, 0.8);
+        }
+
+        .hidden { display: none; }
+
+        /* Süzülen Kalpler ve Yıldızlar */
+        .floating-element {
+            position: absolute;
+            bottom: -100px;
+            animation: rise var(--d) linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+
+        .fade-in { animation: fadeIn 2s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <div id="particles-js"></div>
+
+    <!-- Giriş Ekranı -->
+    <div id="start-screen" class="text-center z-10 p-6">
+        <div class="relative inline-block mb-12">
+            <div class="absolute inset-0 bg-pink-500 blur-[100px] opacity-30 animate-pulse"></div>
+            <div class="text-[140px] animate-bounce select-none">🎁</div>
+        </div>
+        <h2 class="text-3xl font-light mb-10 tracking-[0.5em] text-pink-200/70">ÖZEL BİR MESAJIN VAR</h2>
+        <button onclick="startCelebration()" class="magic-btn text-white">Sürprizi Gör ✨</button>
+    </div>
+
+    <!-- Kutlama Ekranı -->
+    <div id="celebration-screen" class="hidden glass-morphism p-12 md:p-20 text-center max-w-4xl mx-4 z-10 fade-in">
+        <p class="cursive text-3xl md:text-5xl text-pink-400 mb-4">İyi ki Doğdun</p>
+        <h1 class="text-5xl md:text-8xl font-black mb-2 leading-tight">CANIM KUZENİM</h1>
+        <h2 class="text-6xl md:text-9xl name-glow mb-12">GÜLSÜM</h2>
+        
+        <div class="flex justify-center gap-3 mb-10">
+            <div class="h-1.5 w-16 bg-pink-500 rounded-full"></div>
+            <div class="h-1.5 w-4 bg-purple-500 rounded-full"></div>
+            <div class="h-1.5 w-16 bg-blue-500 rounded-full"></div>
+        </div>
+
+        <p class="text-xl md:text-3xl font-light text-white/90 mb-14 leading-relaxed italic">
+            "Senin gibi harika bir kuzene sahip olduğum için çok şanslıyım. <br> 
+            Yeni yaşın sana tüm güzellikleri getirsin!" ✨
+        </p>
+
+        <div class="flex flex-col items-center gap-6">
+            <div class="flex gap-4 mb-4">
+                <span class="text-4xl animate-bounce" style="animation-delay: 0.1s">💖</span>
+                <span class="text-4xl animate-bounce" style="animation-delay: 0.3s">🎉</span>
+                <span class="text-4xl animate-bounce" style="animation-delay: 0.5s">🎂</span>
+            </div>
+            
+            <button onclick="handleMusicToggle()" id="music-btn" class="flex items-center gap-4 bg-white/5 border border-white/10 px-10 py-4 rounded-full hover:bg-white/10 transition-all">
+                <span id="music-icon" class="text-2xl">🎵</span>
+                <span id="music-text" class="uppercase text-xs tracking-[0.3em] font-bold">Müziği Başlat</span>
+            </button>
+        </div>
+    </div>
+
+    <audio id="birthday-audio" loop preload="auto">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const audio = document.getElementById('birthday-audio');
+        const musicBtn = document.getElementById('music-btn');
+        const musicText = document.getElementById('music-text');
+        
+        let isPlaying = false;
+        let playPromise = null; // Çakışmaları önlemek için promise takibi
+
+        function startCelebration() {
+            document.getElementById('start-screen').classList.add('hidden');
+            const screen = document.getElementById('celebration-screen');
+            screen.classList.remove('hidden');
+            
+            launchPremiumConfetti();
+            createMagicElements();
+            
+            // İlk başlatma
+            safePlay();
+        }
+
+        // Güvenli çalma fonksiyonu (Hata önleyici)
+        function safePlay() {
+            playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isPlaying = true;
+                    musicText.innerText = "Müziği Durdur";
+                }).catch(error => {
+                    console.log("Oynatma durduruldu veya engellendi.");
+                    isPlaying = false;
+                    musicText.innerText = "Müziği Başlat";
+                });
+            }
+        }
+
+        // Güvenli durdurma fonksiyonu
+        function safePause() {
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    audio.pause();
+                    isPlaying = false;
+                    musicText.innerText = "Müziği Başlat";
+                });
+            } else {
+                audio.pause();
+                isPlaying = false;
+                musicText.innerText = "Müziği Başlat";
+            }
+        }
+
+        function handleMusicToggle() {
+            if (isPlaying) {
+                safePause();
+            } else {
+                safePlay();
+            }
+        }
+
+        function launchPremiumConfetti() {
+            const count = 250;
+            const defaults = { origin: { y: 0.6 }, zIndex: 1000 };
+
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
+
+            fire(0.25, { spread: 26, startVelocity: 55 });
+            fire(0.2, { spread: 60 });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+            fire(0.1, { spread: 120, startVelocity: 45 });
+        }
+
+        function createMagicElements() {
+            const elements = ['✨', '💖', '⭐', '🎈', '🍭'];
+            setInterval(() => {
+                const el = document.createElement('div');
+                el.className = 'floating-element';
+                el.innerText = elements[Math.floor(Math.random() * elements.length)];
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                el.style.setProperty('--d', (Math.random() * 5 + 5) + 's');
+                document.body.appendChild(el);
+                
+                setTimeout(() => el.remove(), 10000);
+            }, 600);
+        }
+    </script>
+</body>
+</html>
